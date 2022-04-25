@@ -1,8 +1,21 @@
 <table class="table">
+
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Ürün Adı</th>
+      <th scope="col">Kategori</th>
+      <th scope="col">Fiyat</th>
+      <th scope="col">Stok Adeti</th>
+    </tr>
+  </thead>
+
   <tr *ngFor="let product of products">
     <td>{{ product.productId }}</td>
     <td>{{ product.productName }}</td>
     <td>{{ product.categoryId }}</td>
     <td>{{ product.unitPrice }}</td>
+    <td>{{ product.unitsInStock }}</td>
   </tr>
+
 </table>
