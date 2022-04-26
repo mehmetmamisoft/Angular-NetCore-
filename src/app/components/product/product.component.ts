@@ -1,7 +1,7 @@
+import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { ProductResponseModel } from 'src/app/models/productResponseModel';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-product',
@@ -11,8 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProductComponent implements OnInit {
   //gerçek data burasu
   products: Product[] = [];
-  apiUrl = 'https://localhost:44335/api/products/getall';
-
+  dataLoaded=false;
   //şimdillik gerek kalmadu
   //productResponseModel:ProductResponseModel={
   //   data:this.products,
@@ -20,17 +19,21 @@ export class ProductComponent implements OnInit {
   //   success:true
   // };
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     this.getProducts();
   }
 
   getProducts() {
-    this.httpClient
-      .get<ProductResponseModel>(this.apiUrl)
-      .subscribe((response) => {
-        this.products = response.data;
-      });
+    //console.log("api request başladu");
+    this.productService.getProducts().subscribe(response=>{
+      this.products=response.data;
+      this.dataLoaded=true;
+    //console.log("api request bitti");
+
+    });
+    //console.log("Method Bittu");
+
   }
 }
